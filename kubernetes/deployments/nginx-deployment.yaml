@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: aks-learning-nginx
-          image: aks-learning-nginx:v1
+          image: aks-learning-nginx:v3
           imagePullPolicy: Never
           ports:
             - containerPort: 80
