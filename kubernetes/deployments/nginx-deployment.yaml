@@ -4,19 +4,15 @@ metadata:
   name: nginx-deployment
   labels:
     app: nginx-deployment
-
 spec:
   replicas: 4
-
   selector:
     matchLabels:
       app: nginx-deployment
-
   template:
     metadata:
       labels:
         app: nginx-deployment
-
     spec:
       containers:
         - name: aks-learning-nginx
@@ -24,3 +20,14 @@ spec:
           imagePullPolicy: Never
           ports:
             - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: nginx-config
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/app-config
+              readOnly: true
+      volumes:
+        - name: config-volume
+          configMap:
+            name: nginx-config
