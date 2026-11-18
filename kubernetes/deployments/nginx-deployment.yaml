@@ -23,11 +23,20 @@ spec:
           envFrom:
             - configMapRef:
                 name: nginx-config
+            - secretRef:
+                name: nginx-secret
           volumeMounts:
             - name: config-volume
               mountPath: /etc/app-config
+              readOnly: true
+            - name: secret-volume
+              mountPath: /etc/app-secrets
               readOnly: true
       volumes:
         - name: config-volume
           configMap:
             name: nginx-config
+        - name: secret-volume
+          secret:
+            secretName: nginx-secret
+            defaultMode: 0400
